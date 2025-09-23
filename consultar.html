@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Problemas - SUP-PORT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        nav {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 1rem;
+        }
+        
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            margin: 0.5rem 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+        }
+        
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item a:hover {
+            background-color: rgba(253, 187, 45, 0.2);
+        }
+        
+        .nav-item a.active {
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            font-weight: bold;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-item::before {
+            content: "";
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #fdbb2d;
+            margin-right: 8px;
+            border-radius: 3px;
+        }
+        
+        .checked::before {
+            background-color: #fdbb2d;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+            background-size: contain;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            color: #fdbb2d;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .search-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .search-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #fdbb2d;
+        }
+        
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+        }
+        
+        .search-input {
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(253, 187, 45, 0.5);
+        }
+        
+        .search-button {
+            padding: 0.8rem 1.5rem;
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-button:hover {
+            background-color: #ffcc55;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .filter-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+        
+        .problems-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .problem-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            border-left: 4px solid #fdbb2d;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .problem-card.critical {
+            border-left: 4px solid #b21f1f;
+        }
+        
+        .problem-card.resolved {
+            border-left: 4px solid #1a2a6c;
+        }
+        
+        .problem-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .problem-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #fdbb2d;
+        }
+        
+        .problem-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .status-open {
+            background-color: rgba(253, 187, 45, 0.3);
+            color: #fdbb2d;
+        }
+        
+        .status-critical {
+            background-color: rgba(178, 31, 31, 0.3);
+            color: #ff6b6b;
+        }
+        
+        .status-resolved {
+            background-color: rgba(26, 42, 108, 0.3);
+            color: #6c8bff;
+        }
+        
+        .problem-details {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .problem-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .view-details {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: rgba(253, 187, 45, 0.2);
+            color: #fdbb2d;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .view-details:hover {
+            background-color: rgba(253, 187, 45, 0.4);
+        }
+        
+        /* Nuevos estilos para el formulario de consulta */
+        .consultation-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .consultation-form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(253, 187, 45, 0.5);
+        }
+        
+        .submit-button {
+            padding: 1rem 1.5rem;
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: flex-end;
+        }
+        
+        .submit-button:hover {
+            background-color: #ffcc55;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .success-message {
+            display: none;
+            background-color: rgba(40, 167, 69, 0.2);
+            border-left: 4px solid #28a745;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .problems-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-item {
+                margin: 0.3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SUP-PORT</div>
+    </header>
+    
+    <nav>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="index.html">Inicio</a></li>
+            <li class="nav-item"><a href="problmcomun.html">Problemas Comunes</a></li>
+            <li class="nav-item"><a href="#" class="active">Consultar</a></li>
+            <li class="nav-item"><a href="foro.html">Foro</a></li>
+            <li class="nav-item"><a href="login.html">Iniciar Sesion</a></li>
+            <li class="nav-item"><a href="register.html">Registrarse</a></li>
+        </ul>
+    </nav>
+    
+    <main class="main-content">
+        <h1 class="page-title">Consultar Problemas Reportados</h1>
+        
+        <section class="search-section">
+            <h2 class="search-title">Buscar Problemas</h2>
+            <form class="search-form">
+                <input type="text" class="search-input" placeholder="Buscar por palabras clave...">
+                <button type="submit" class="search-button">Buscar</button>
+            </form>
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="category">Categoría</label>
+                    <select id="category">
+                        <option value="">Todas las categorías</option>
+                        <option value="hardware">Hardware</option>
+                        <option value="software">Software</option>
+                        <option value="network">Red</option>
+                        <option value="security">Seguridad</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="status">Estado</label>
+                    <select id="status">
+                        <option value="">Todos los estados</option>
+                        <option value="open">Abierto</option>
+                        <option value="in-progress">En progreso</option>
+                        <option value="resolved">Resuelto</option>
+                        <option value="critical">Crítico</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="date">Fecha</label>
+                    <select id="date">
+                        <option value="">Cualquier fecha</option>
+                        <option value="today">Hoy</option>
+                        <option value="week">Esta semana</option>
+                        <option value="month">Este mes</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+        
+        <h2 class="search-title">Problemas Recientes</h2>
+        
+        <div class="problems-container">
+            <div class="problem-card">
+                <div class="problem-header">
+                    <div>
+                        <h3 class="problem-title">Error de conexión a la base de datos</h3>
+                        <span class="problem-status status-open">Abierto</span>
+                    </div>
+                </div>
+                <p class="problem-details">Los usuarios reportan problemas para acceder a los datos del sistema. El error se produce al intentar generar reportes.</p>
+                <div class="problem-meta">
+                    <span>Categoría: Software</span>
+                    <span>Hace 2 días</span>
+                </div>
+                <a href="#" class="view-details">Ver detalles</a>
+            </div>
+            
+            <div class="problem-card critical">
+                <div class="problem-header">
+                    <div>
+                        <h3 class="problem-title">Caída del servidor principal</h3>
+                        <span class="problem-status status-critical">Crítico</span>
+                    </div>
+                </div>
+                <p class="problem-details">El servidor principal ha dejado de responder. Todo el sistema está fuera de línea hasta que se resuelva.</p>
+                <div class="problem-meta">
+                    <span>Categoría: Hardware</span>
+                    <span>Hace 5 horas</span>
+                </div>
+                <a href="#" class="view-details">Ver detalles</a>
+            </div>
+            
+            <div class="problem-card resolved">
+                <div class="problem-header">
+                    <div>
+                        <h3 class="problem-title">Vulnerabilidad de seguridad</h3>
+                        <span class="problem-status status-resolved">Resuelto</span>
+                    </div>
+                </div>
+                <p class="problem-details">Se detectó una vulnerabilidad en el sistema de autenticación. Ya se aplicó el parche de seguridad.</p>
+                <div class="problem-meta">
+                    <span>Categoría: Seguridad</span>
+                    <span>Hace 1 semana</span>
+                </div>
+                <a href="#" class="view-details">Ver detalles</a>
+            </div>
+            
+            <div class="problem-card">
+                <div class="problem-header">
+                    <div>
+                        <h3 class="problem-title">Lentitud en la red</h3>
+                        <span class="problem-status status-open">Abierto</span>
+                    </div>
+                </div>
+                <p class="problem-details">Varios usuarios reportan lentitud extrema al acceder a recursos de red, especialmente en horas pico.</p>
+                <div class="problem-meta">
+                    <span>Categoría: Red</span>
+                    <span>Hace 3 días</span>
+                </div>
+                <a href="#" class="view-details">Ver detalles</a>
+            </div>
+            
+            <div class="problem-card">
+                <div class="problem-header">
+                    <div>
+                        <h3 class="problem-title">Error en interface de usuario</h3>
+                        <span class="problem-status status-open">Abierto</span>
+                    </div>
+                </div>
+                <p class="problem-details">Los botones de la pantalla de configuración no responden correctamente en dispositivos móviles.</p>
+                <div class="problem-meta">
+                    <span>Categoría: Software</span>
+                    <span>Hace 4 días</span>
+                </div>
+                <a href="#" class="view-details">Ver detalles</a>
+            </div>
+            
+            <div class="problem-card resolved">
+                <div class="problem-header">
+                    <div>
+                        <h3 class="problem-title">Problema de impresión</h3>
+                        <span class="problem-status status-resolved">Resuelto</span>
+                    </div>
+                </div>
+                <p class="problem-details">Las impresoras de la oficina central no respondían a los comandos de impresión. Ya se solucionó.</p>
+                <div class="problem-meta">
+                    <span>Categoría: Hardware</span>
+                    <span>Hace 2 semanas</span>
+                </div>
+                <a href="#" class="view-details">Ver detalles</a>
+            </div>
+        </div>
+        
+        <!-- Nuevo formulario de consulta -->
+        <section class="consultation-section">
+            <h2 class="search-title">Realizar una Consulta</h2>
+            <form id="consultationForm" class="consultation-form">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" placeholder="Tu nombre" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" placeholder="tu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Asunto</label>
+                    <input type="text" id="subject" placeholder="Asunto de tu consulta" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Mensaje</label>
+                    <textarea id="message" placeholder="Describe tu consulta en detalle..." required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-button">Enviar Consulta</button>
+                
+                <div id="successMessage" class="success-message">
+                    ¡Consulta enviada exitosamente! Te responderemos a la brevedad.
+                </div>
+            </form>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 1996-2025 SUP-PORT - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // Funcionalidad básica de búsqueda y filtrado
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.querySelector('.search-form');
+            const categoryFilter = document.getElementById('category');
+            const statusFilter = document.getElementById('status');
+            const dateFilter = document.getElementById('date');
+            const problemCards = document.querySelectorAll('.problem-card');
+            
+            // Función para filtrar problemas
+            function filterProblems() {
+                const categoryValue = categoryFilter.value;
+                const statusValue = statusFilter.value;
+                const dateValue = dateFilter.value;
+                
+                problemCards.forEach(card => {
+                    let categoryMatch = true;
+                    let statusMatch = true;
+                    let dateMatch = true;
+                    
+                    // Filtrar por categoría
+                    if (categoryValue) {
+                        const categoryText = card.querySelector('.problem-meta span:first-child').textContent;
+                        if (!categoryText.toLowerCase().includes(categoryValue)) {
+                            categoryMatch = false;
+                        }
+                    }
+                    
+                    // Filtrar por estado
+                    if (statusValue) {
+                        const statusElement = card.querySelector('.problem-status');
+                        let statusClass = '';
+                        
+                        if (statusValue === 'open') statusClass = 'status-open';
+                        else if (statusValue === 'critical') statusClass = 'status-critical';
+                        else if (statusValue === 'resolved') statusClass = 'status-resolved';
+                        
+                        if (!statusElement.classList.contains(statusClass)) {
+                            statusMatch = false;
+                        }
+                    }
+                    
+                    // Mostrar u ocultar según coincidan los filtros
+                    if (categoryMatch && statusMatch && dateMatch) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Añadir event listeners a los filtros
+            categoryFilter.addEventListener('change', filterProblems);
+            statusFilter.addEventListener('change', filterProblems);
+            dateFilter.addEventListener('change', filterProblems);
+            
+            // Manejar búsqueda
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const searchInput = document.querySelector('.search-input');
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                problemCards.forEach(card => {
+                    const title = card.querySelector('.problem-title').textContent.toLowerCase();
+                    const details = card.querySelector('.problem-details').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || details.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Manejar el formulario de consulta
+            const consultationForm = document.getElementById('consultationForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            consultationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Aquí normalmente se enviarían los datos a un servidor
+                // Simulamos el envío con un retraso de 1 segundo
+                
+                // Mostrar mensaje de éxito
+                successMessage.style.display = 'block';
+                
+                // Ocultar mensaje después de 5 segundos
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+                
+                // Limpiar formulario
+                consultationForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problemas Comunes - SUP-PORT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        nav {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 1rem;
+        }
+        
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            margin: 0.5rem 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+        }
+        
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item a:hover {
+            background-color: rgba(253, 187, 45, 0.2);
+        }
+        
+        .nav-item a.active {
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            font-weight: bold;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-item::before {
+            content: "";
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #fdbb2d;
+            margin-right: 8px;
+            border-radius: 3px;
+        }
+        
+        .checked::before {
+            background-color: #fdbb2d;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+            background-size: contain;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            color: #fdbb2d;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .intro-text {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .categories-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .category-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        .category-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .view-category {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background-color: rgba(253, 187, 45, 0.2);
+            color: #fdbb2d;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .view-category:hover {
+            background-color: rgba(253, 187, 45, 0.4);
+        }
+        
+        .common-issues {
+            margin-top: 3rem;
+        }
+        
+        .issues-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #fdbb2d;
+        }
+        
+        .issues-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .issue-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .issue-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .issue-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .issue-icon {
+            font-size: 1.5rem;
+            margin-right: 0.8rem;
+            color: #fdbb2d;
+        }
+        
+        .issue-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fdbb2d;
+        }
+        
+        .issue-description {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .solution-steps {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .solution-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #fdbb2d;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-number {
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-right: 0.8rem;
+            flex-shrink: 0;
+        }
+        
+        .step-text {
+            line-height: 1.4;
+        }
+        
+        .help-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .help-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        .help-text {
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .help-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .help-button:hover {
+            background-color: #ffcc55;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .categories-container, .issues-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-item {
+                margin: 0.3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SUP-PORT</div>
+    </header>
+    
+    <nav>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="index.html">Inicio</a></li>
+            <li class="nav-item"><a href="#" class="active">Problemas Comunes</a></li>
+            <li class="nav-item"><a href="consultar.html">Consultar</a></li>
+            <li class="nav-item"><a href="foro.html">Foro</a></li>
+            <li class="nav-item"><a href="login.html">Iniciar Sesion</a></li>
+            <li class="nav-item"><a href="register.html">Registrarse</a></li>
+        </ul>
+    </nav>
+    
+    <main class="main-content">
+        <h1 class="page-title">Problemas Comunes</h1>
+        
+        <p class="intro-text">
+            En esta sección encontrarás soluciones a los problemas más frecuentes reportados por nuestros usuarios.
+            Revisa estas soluciones antes de contactar con soporte, ya que pueden resolver tu problema rápidamente.
+        </p>
+        
+        <div class="categories-container">
+            <div class="category-card">
+                <div class="category-icon">📁</div>
+                <h2 class="category-title">Problemas de Archivos</h2>
+                <p class="category-description">Problemas relacionados con la carga, descarga o visualización de archivos en el sistema.</p>
+                <a href="#archivos" class="view-category">Ver problemas</a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">🔐</div>
+                <h2 class="category-title">Acceso y Autenticación</h2>
+                <p class="category-description">Problemas para iniciar sesión, recuperar contraseñas o acceder a áreas restringidas.</p>
+                <a href="#acceso" class="view-category">Ver problemas</a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">🌐</div>
+                <h2 class="category-title">Conexión y Red</h2>
+                <p class="category-description">Problemas de conectividad, velocidad de conexión o acceso a recursos en red.</p>
+                <a href="#red" class="view-category">Ver problemas</a>
+            </div>
+        </div>
+        
+        <section class="common-issues">
+            <h2 id="archivos" class="issues-title">Problemas de Archivos</h2>
+            
+            <div class="issues-container">
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">📤</div>
+                        <h3 class="issue-title">No puedo subir archivos</h3>
+                    </div>
+                    <p class="issue-description">El sistema no me permite subir archivos o muestra un error durante el proceso.</p>
+                    
+                    <div class="solution-steps">
+                        <div class="solution-title">Solución:</div>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Verifica que el archivo no exceda el tamaño máximo permitido (50MB).</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Asegúrate de que el formato del archivo esté permitido (.pdf, .doc, .docx, .xls, .xlsx).</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Intenta recargar la página y volver a intentarlo.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">📥</div>
+                        <h3 class="issue-title">No puedo descargar archivos</h3>
+                    </div>
+                    <p class="issue-description">Al intentar descargar un archivo, la descarga no inicia o se interrumpe.</p>
+                    
+                    <div class="solution-steps">
+                        <div class="solution-title">Solución:</div>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Verifica tu conexión a internet.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Comprueba que tu navegador no esté bloqueando las descargas.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Intenta con un navegador diferente para descartar problemas del navegador actual.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">📥</div>
+                        <h3 class="issue-title">Sistema Operativo lento</h3>
+                    </div>
+                    <p class="issue-description">El sistema operativo anda lento o tarda demasiado en refrescar</p>
+                    
+                    <div class="solution-steps">
+                        <div class="solution-title">Solución:</div>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Formatear el disco donde se instalo el sistema operativo y volver a instalarlo</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">entrar a la carpeta de archivos temporales (accesible por Windows+R, Temp y %Temp%) y eliminar todos los archivos de la misma (algunos no se podrán borrar, solo omitelos).</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">desinstalar archivos innecesarios o en caso de tener un disco HDD, cambiarlo por un SSD.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <h2 id="acceso" class="issues-title" style="margin-top: 3rem;">Problemas de Acceso y Autenticación</h2>
+            
+            <div class="issues-container">
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">🔑</div>
+                        <h3 class="issue-title">No recuerdo mi contraseña</h3>
+                    </div>
+                    <p class="issue-description">He olvidado mi contraseña y no puedo acceder a mi cuenta.</p>
+                    
+                    <div class="solution-steps">
+                        <div class="solution-title">Solución:</div>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">En la página de inicio de sesión, haz clic en "¿Olvidaste tu contraseña?"</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Ingresa tu dirección de correo electrónico asociada a la cuenta.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Sigue las instrucciones que recibirás por correo electrónico para restablecer tu contraseña.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">🚫</div>
+                        <h3 class="issue-title">Mi cuenta está bloqueada</h3>
+                    </div>
+                    <p class="issue-description">Después de varios intentos fallidos, mi cuenta ha sido bloqueada.</p>
+                    
+                    <div class="solution-steps">
+                        <div class="solution-title">Solución:</div>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Espera 30 minutos e intenta iniciar sesión nuevamente.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Si el problema persiste, utiliza la opción de recuperación de contraseña.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Si continúas con problemas, contacta con nuestro equipo de soporte.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">🐱‍👤</div>
+                        <h3 class="issue-title">El ordenador no enciende</h3>
+                    </div>
+                    <p class="issue-description">De un dia para el otro no enciende y estoy preocupado</p>
+                    
+                    <div class="solution-steps">
+                        <div class="solution-title">Solución:</div>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">un error muy típico, suele ser un problema físico: el cable de alimentación del CPU puede estar mal conectado.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">el cable de alimentación del monitor puede estar mal conectado.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">también el responsable suele ser el cable VGA o HDMI.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 id="red" class="issues-title" style="margin-top: 3rem;">Problemas de Conexión y Red</h2>
+            
+            <div class="issues-container">
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">🐢</div>
+                        <h3 class="issue-title">La aplicación va muy lenta</h3>
+                    </div>
+                    <p class="issue-description">El sistema responde con lentitud y las acciones tardan en completarse.</p>
+                    
+                    <div class="solution-steps">
+                        <div class="solution-title">Solución:</div>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Verifica la velocidad de tu conexión a internet.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Cierra otras pestañas y aplicaciones que puedan estar consumiendo ancho de banda.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Limpia la caché de tu navegador y reinícialo.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">❌</div>
+                        <h3 class="issue-title">No puedo acceder al sistema</h3>
+                    </div>
+                    <p class="issue-description">Al intentar acceder a la aplicación, recibo un error de conexión.</p>
+                    
+                    <div class="solution-steps">
+                        <div class="solution-title">Solución:</div>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Comprueba que tu conexión a internet esté activa.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Intenta acceder desde otro dispositivo o red para identificar el origen del problema.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Verifica nuestro estado de servicio en la página principal para descartar mantenimientos programados.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="help-section">
+            <h2 class="help-title">¿No encontraste la solución?</h2>
+            <p class="help-text">Si tu problema no aparece en esta lista o las soluciones proporcionadas no resolvieron tu incidencia, nuestro equipo de soporte está disponible para ayudarte.</p>
+            <a href="#" class="help-button">Contactar con Soporte</a>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 1996-2025 SUP-PORT - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // Smooth scroll para los enlaces de categorías
+        document.querySelectorAll('.view-category').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Efecto de acordeón para las tarjetas de problemas (opcional)
+        document.querySelectorAll('.issue-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const solution = this.querySelector('.solution-steps');
+                if (solution) {
+                    solution.style.display = solution.style.display === 'none' ? 'block' : 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

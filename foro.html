@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro - SUP-PORT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        nav {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 1rem;
+        }
+        
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            margin: 0.5rem 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+        }
+        
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item a:hover {
+            background-color: rgba(253, 187, 45, 0.2);
+        }
+        
+        .nav-item a.active {
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            font-weight: bold;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-item::before {
+            content: "";
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #fdbb2d;
+            margin-right: 8px;
+            border-radius: 3px;
+        }
+        
+        .checked::before {
+            background-color: #fdbb2d;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+            background-size: contain;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            color: #fdbb2d;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .intro-text {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .forum-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .search-box {
+            display: flex;
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .search-input {
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(253, 187, 45, 0.5);
+        }
+        
+        .search-button {
+            padding: 0.8rem 1.2rem;
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-button:hover {
+            background-color: #ffcc55;
+        }
+        
+        .new-thread-button {
+            padding: 0.8rem 1.5rem;
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .new-thread-button:hover {
+            background-color: #ffcc55;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .categories-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .category-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        .category-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .threads-count {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .view-category {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background-color: rgba(253, 187, 45, 0.2);
+            color: #fdbb2d;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .view-category:hover {
+            background-color: rgba(253, 187, 45, 0.4);
+        }
+        
+        .recent-threads {
+            margin-top: 3rem;
+        }
+        
+        .threads-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #fdbb2d;
+        }
+        
+        .threads-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .thread-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .thread-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .thread-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .thread-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fdbb2d;
+            margin-right: 1rem;
+        }
+        
+        .thread-category {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background-color: rgba(26, 42, 108, 0.3);
+            color: #6c8bff;
+        }
+        
+        .thread-content {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .thread-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .thread-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #fdbb2d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #1a2a6c;
+        }
+        
+        .thread-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .view-thread {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: rgba(253, 187, 45, 0.2);
+            color: #fdbb2d;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+        
+        .view-thread:hover {
+            background-color: rgba(253, 187, 45, 0.4);
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+        
+        .pagination-button {
+            padding: 0.5rem 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination-button.active {
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            font-weight: bold;
+        }
+        
+        .pagination-button:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .forum-actions {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                max-width: 100%;
+            }
+            
+            .categories-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .thread-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .thread-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-item {
+                margin: 0.3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SUP-PORT</div>
+    </header>
+    
+    <nav>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="index.html">Inicio</a></li>
+            <li class="nav-item"><a href="problmcomun.html">Problemas Comunes</a></li>
+            <li class="nav-item"><a href="consultar.html">Consultar</a></li>
+            <li class="nav-item"><a href="#" class="active">Foro</a></li>
+            <li class="nav-item"><a href="login.html">Iniciar Sesion</a></li>
+            <li class="nav-item"><a href="register.html">Registrarse</a></li>
+        </ul>
+    </nav>
+    
+    <main class="main-content">
+        <h1 class="page-title">Foro de la Comunidad</h1>
+        
+        <p class="intro-text">
+            Bienvenido al foro de SUP-PORT. Aquí puedes compartir tus experiencias, hacer preguntas y ayudar a otros usuarios. 
+            ¡Únete a la conversación y forma parte de nuestra comunidad!
+        </p>
+        
+        <div class="forum-actions">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Buscar en el foro...">
+                <button class="search-button">🔍</button>
+            </div>
+            
+            <button class="new-thread-button">＋ Nuevo Tema</button>
+        </div>
+        
+        <h2 class="threads-title">Categorías del Foro</h2>
+        
+        <div class="categories-container">
+            <div class="category-card">
+                <div class="category-icon">💻</div>
+                <h2 class="category-title">Soporte Técnico</h2>
+                <p class="category-description">Resuelve problemas técnicos con la ayuda de la comunidad y nuestros expertos.</p>
+                <div class="threads-count">128 temas · 542 respuestas</div>
+                <a href="#" class="view-category">Ver categoría</a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">💡</div>
+                <h2 class="category-title">Ideas y Sugerencias</h2>
+                <p class="category-description">Comparte tus ideas para mejorar SUP-PORT y vota por las propuestas de otros.</p>
+                <div class="threads-count">76 temas · 324 respuestas</div>
+                <a href="#" class="view-category">Ver categoría</a>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">🚀</div>
+                <h2 class="category-title">Novedades y Actualizaciones</h2>
+                <p class="category-description">Mantente informado sobre las últimas actualizaciones y características nuevas.</p>
+                <div class="threads-count">42 temas · 198 respuestas</div>
+                <a href="#" class="view-category">Ver categoría</a>
+            </div>
+        </div>
+        
+        <section class="recent-threads">
+            <h2 class="threads-title">Temas Recientes</h2>
+            
+            <div class="threads-container">
+                <div class="thread-card">
+                    <div class="thread-header">
+                        <h3 class="thread-title">Problema con la importación de datos</h3>
+                        <span class="thread-category">Soporte Técnico</span>
+                    </div>
+                    <p class="thread-content">
+                        Hola comunidad, tengo problemas al importar datos desde Excel. El sistema me muestra un error que no logro entender. ¿Alguien ha tenido el mismo problema?
+                    </p>
+                    <div class="thread-meta">
+                        <div class="thread-author">
+                            <div class="author-avatar">J</div>
+                            <span>Juan Perez</span>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">💬 12 respuestas</div>
+                            <div class="stat">👁️ 45 vistas</div>
+                            <div class="stat">🕒 Hace 2 horas</div>
+                        </div>
+                    </div>
+                    <a href="#" class="view-thread">Ver tema</a>
+                </div>
+                
+                <div class="thread-card">
+                    <div class="thread-header">
+                        <h3 class="thread-title">Sugerencia: Mejorar el panel de estadísticas</h3>
+                        <span class="thread-category">Ideas y Sugerencias</span>
+                    </div>
+                    <p class="thread-content">
+                        Propongo añadir más gráficos personalizables al panel de estadísticas. Sería muy útil para analizar los datos de manera más eficiente. ¿Qué opinan?
+                    </p>
+                    <div class="thread-meta">
+                        <div class="thread-author">
+                            <div class="author-avatar">M</div>
+                            <span>Maria Lopez</span>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">💬 8 respuestas</div>
+                            <div class="stat">👁️ 32 vistas</div>
+                            <div class="stat">🕒 Ayer</div>
+                        </div>
+                    </div>
+                    <a href="#" class="view-thread">Ver tema</a>
+                </div>
+                
+                <div class="thread-card">
+                    <div class="thread-header">
+                        <h3 class="thread-title">Nueva actualización v2.3 - Lo que trae</h3>
+                        <span class="thread-category">Novedades y Actualizaciones</span>
+                    </div>
+                    <p class="thread-content">
+                        ¡Ya está disponible la versión 2.3 de SUP-PORT! Incluye mejoras en el rendimiento, nuevas opciones de exportación y corrección de errores críticos.
+                    </p>
+                    <div class="thread-meta">
+                        <div class="thread-author">
+                            <div class="author-avatar">S</div>
+                            <span>SoporteSUP-PORT</span>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">💬 24 respuestas</div>
+                            <div class="stat">👁️ 89 vistas</div>
+                            <div class="stat">🕒 Hace 3 días</div>
+                        </div>
+                    </div>
+                    <a href="#" class="view-thread">Ver tema</a>
+                </div>
+                
+                <div class="thread-card">
+                    <div class="thread-header">
+                        <h3 class="thread-title">¿Cómo optimizar el uso de memoria?</h3>
+                        <span class="thread-category">Soporte Técnico</span>
+                    </div>
+                    <p class="thread-content">
+                        Estoy trabajando con archivos muy grandes y el consumo de memoria es excesivo. ¿Algún consejo para optimizar el rendimiento?
+                    </p>
+                    <div class="thread-meta">
+                        <div class="thread-author">
+                            <div class="author-avatar">C</div>
+                            <span>CarlosR</span>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">💬 5 respuestas</div>
+                            <div class="stat">👁️ 28 vistas</div>
+                            <div class="stat">🕒 Hace 4 días</div>
+                        </div>
+                    </div>
+                    <a href="#" class="view-thread">Ver tema</a>
+                </div>
+                
+                <div class="thread-card">
+                    <div class="thread-header">
+                        <h3 class="thread-title">Propuesta: Integración con API externas</h3>
+                        <span class="thread-category">Ideas y Sugerencias</span>
+                    </div>
+                    <p class="thread-content">
+                        Sería genial si SUP-PORT permitiera integración con APIs de terceros como Google Sheets o Salesforce. ¡Voten si les interesa!
+                    </p>
+                    <div class="thread-meta">
+                        <div class="thread-author">
+                            <div class="author-avatar">A</div>
+                            <span>Ana Garcia</span>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">💬 15 respuestas</div>
+                            <div class="stat">👁️ 67 vistas</div>
+                            <div class="stat">🕒 Hace 5 días</div>
+                        </div>
+                    </div>
+                    <a href="#" class="view-thread">Ver tema</a>
+                </div>
+                <div class="thread-card">
+                    <div class="thread-header">
+                        <h3 class="thread-title">Soporte:Ayuda</h3>
+                        <span class="thread-category">Ayuda</span>
+                    </div>
+                    <p class="thread-content">
+                        Como se manda un problema, no me gusta el diseño de la pagina...
+                    </p>
+                    <div class="thread-meta">
+                        <div class="thread-author">
+                            <div class="author-avatar">G</div>
+                            <span>GoGoRodriguez</span>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">💬 0 respuestas</div>
+                            <div class="stat">👁️ 69 vistas</div>
+                            <div class="stat">🕒 Hace 8 días</div>
+                        </div>
+                    </div>
+                    <a href="#" class="view-thread">Ver tema</a>
+                </div>
+                <div class="thread-card">
+                    <div class="thread-header">
+                        <h3 class="thread-title">Sugerencia: Contratenme</h3>
+                        <span class="thread-category">Sugerencia</span>
+                    </div>
+                    <p class="thread-content">
+                        Podrias contratarme para hacer un mejor diseño de pagina. La verdad es lamentable esta pagina.
+                    </p>
+                    <div class="thread-meta">
+                        <div class="thread-author">
+                            <div class="author-avatar">Ns</div>
+                            <span>Nina Santino Gomez Moreno</span>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">💬 1 respuestas oficial del jefe real</div>
+                            <div class="stat">👁️ 1 vista oficial</div>
+                            <div class="stat">🕒 Hace 10 días</div>
+                        </div>
+                    </div>
+                    <a href="#" class="view-thread">Ver tema</a>
+                </div>
+            </div>
+            
+            <div class="pagination">
+                <button class="pagination-button active">1</button>
+                <button class="pagination-button">2</button>
+                <button class="pagination-button">3</button>
+                <button class="pagination-button">→</button>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 1996-2025 SUP-PORT - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // Simulación de funcionalidad de búsqueda
+        document.querySelector('.search-button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-input').value;
+            if (searchTerm.trim() !== '') {
+                alert(`Buscando: "${searchTerm}"\n\nEn una implementación real, esto realizaría una búsqueda en el foro.`);
+            }
+        });
+        
+        // Simulación de crear nuevo tema
+        document.querySelector('.new-thread-button').addEventListener('click', function() {
+            alert('Redirigiendo a la página de creación de nuevo tema...\n\nEn una implementación real, esto abriría un formulario para crear un nuevo hilo de discusión.');
+        });
+        
+        // Simulación de ver categoría
+        document.querySelectorAll('.view-category').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const category = this.parentElement.querySelector('.category-title').textContent;
+                alert(`Cargando temas de la categoría: ${category}\n\nEn una implementación real, esto mostraría todos los hilos de esta categoría.`);
+            });
+        });
+        
+        // Simulación de ver tema
+        document.querySelectorAll('.view-thread').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const threadTitle = this.parentElement.querySelector('.thread-title').textContent;
+                alert(`Abriendo tema: ${threadTitle}\n\nEn una implementación real, esto cargaría el hilo de discusión con todas sus respuestas.`);
+            });
+        });
+        
+        // Simulación de paginación
+        document.querySelectorAll('.pagination-button').forEach(button => {
+            button.addEventListener('click', function() {
+                if (!this.classList.contains('active')) {
+                    document.querySelector('.pagination-button.active').classList.remove('active');
+                    this.classList.add('active');
+                    alert(`Cargando página ${this.textContent}\n\nEn una implementación real, esto cargaría los temas de la página seleccionada.`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

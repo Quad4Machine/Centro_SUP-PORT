@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUP-PORT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        nav {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 1rem;
+        }
+        
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            margin: 0.5rem 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+        }
+        
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item a:hover {
+            background-color: rgba(253, 187, 45, 0.2);
+        }
+        
+        .nav-item a.active {
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            font-weight: bold;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        
+
+        
+        .checked::before {
+            background-color: #fdbb2d;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+            background-size: contain;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .hero {
+            max-width: 800px;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background-color: #ffcc55;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 250px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        .feature-card p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-item {
+                margin: 0.3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SUP-PORT</div>
+    </header>
+    
+    <nav>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="#" class="active">Inicio</a></li>
+            <li class="nav-item"><a href="problmcomun.html">Problemas Comunes</a></li>
+            <li class="nav-item"><a href="consultar.html">Consultar</a></li>
+            <li class="nav-item"><a href="foro.html">Foro</a></li>
+            <li class="nav-item"><a href="login.html">Iniciar Sesion</a></li>
+            <li class="nav-item"><a href="register.html">Registrarse</a></li>
+        </ul>
+    </nav>
+    
+    <main class="main-content">
+        <section class="hero">
+            <h1>Bienvenido a SUP-PORT</h1>
+            <p>La plataforma integral para la gestión y resolución de problemas técnicos. Conectamos expertos con usuarios para soluciones rápidas y eficientes.</p>
+            <a href="#" class="cta-button">Comenzar ahora</a>
+        </section>
+        
+        <section class="features">
+            <div class="feature-card">
+                <h3><a href="consultar.html">Reportar Problemas</a></h3>
+                <p>Informa sobre incidencias técnicas y obtén ayuda especializada de nuestra comunidad.</p>
+            </div>
+            <div class="feature-card">
+                <h3><a href="problmcomun.html">Soluciones Comunes</a></h3>
+                <p>Accede a nuestra base de conocimientos con soluciones para problemas frecuentes.</p>
+            </div>
+            <div class="feature-card">
+                <h3><a href="foro.html">Foro de Discusión</a></h3>
+                <p>Participa en conversaciones con otros usuarios y expertos en la materia.</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 1996-2025 SUP-PORT - Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>
