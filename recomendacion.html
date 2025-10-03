@@ -563,167 +563,27 @@
             Ademas podras encontrar tutoriales sobre recomendaciones basicas de hardware
         </p>
         
-        <section class="filter-section">
-            <h2 class="filter-title">Filtrar Recomendaciones</h2>
-            <div class="filters">
-                <div class="filter-group">
-                    <label for="category">Categoría</label>
-                    <select id="category">
-                        <option value="all">Todas las categorías</option>
-                        <option value="cpu">Procesadores</option>
-                        <option value="gpu">Tarjetas Gráficas</option>
-                        <option value="ram">Memoria RAM</option>
-                        <option value="storage">Almacenamiento</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <label for="budget">Presupuesto</label>
-                    <select id="budget">
-                        <option value="all">Cualquier presupuesto</option>
-                        <option value="low">Económico (menos de $500)</option>
-                        <option value="medium">Medio ($500 - $1500)</option>
-                        <option value="high">Alto (más de $1500)</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <label for="usage">Uso Principal</label>
-                    <select id="usage">
-                        <option value="all">Cualquier uso</option>
-                        <option value="office">Oficina</option>
-                        <option value="gaming">Gaming</option>
-                        <option value="development">Desarrollo</option>
-                        <option value="server">Servidor</option>
-                    </select>
-                </div>
-            </div>
-        </section>
         
-        <h2 class="filter-title">Categorías de Hardware</h2>
+        
         
         <div class="categories-container">
-            <div class="category-card" data-category="cpu">
-                <div class="category-icon">⚡</div>
-                <h2 class="category-title">Procesadores</h2>
-                <p class="category-description">CPU optimizados para el rendimiento de SUP-PORT en diferentes tareas y presupuestos.</p>
-            </div>
             
-            <div class="category-card" data-category="gpu">
-                <div class="category-icon">🎮</div>
-                <h2 class="category-title">Tarjetas Gráficas</h2>
-                <p class="category-description">GPUs para visualización, renderizado y procesamiento de datos intensivo.</p>
-            </div>
             
-            <div class="category-card" data-category="ram">
-                <div class="category-icon">💾</div>
-                <h2 class="category-title">Memoria RAM</h2>
-                <p class="category-description">Módulos de memoria para un rendimiento óptimo con cargas de trabajo pesadas.</p>
-            </div>
+            
+            
+            
         </div>
         
-        <h2 class="filter-title">Recomendaciones Destacadas</h2>
+        
         
         <div class="hardware-container">
-            <div class="hardware-card" data-category="cpu" data-budget="medium">
-                <div class="hardware-header">
-                    <div class="hardware-icon">⚡</div>
-                    <h3 class="hardware-title">AMD Ryzen 7 5800X</h3>
-                </div>
-                <p class="hardware-specs">
-                    Procesador de 8 núcleos y 16 hilos, ideal para multitarea y procesamiento de datos.
-                </p>
-                <ul class="spec-list">
-                    <li>8 núcleos, 16 hilos</li>
-                    <li>Frecuencia base: 3.8 GHz</li>
-                    <li>Cache: 36 MB</li>
-                    <li>Socket: AM4</li>
-                </ul>
-                <div class="hardware-rating">
-                    <div class="stars">★★★★★</div>
-                    <div class="rating-value">4.8/5</div>
-                </div>
-                <div class="hardware-price">$349.99</div>
-                <div class="hardware-actions">
-                    <button class="action-button primary-button">Ver Detalles</button>
-                    <button class="action-button secondary-button">Comparar</button>
-                </div>
-            </div>
             
-            <div class="hardware-card" data-category="gpu" data-budget="high">
-                <div class="hardware-header">
-                    <div class="hardware-icon">🎮</div>
-                    <h3 class="hardware-title">NVIDIA RTX 4070</h3>
-                </div>
-                <p class="hardware-specs">
-                    Tarjeta gráfica de alto rendimiento para visualización 3D y procesamiento paralelo.
-                </p>
-                <ul class="spec-list">
-                    <li>12 GB GDDR6X</li>
-                    <li>5888 CUDA Cores</li>
-                    <li>PCIe 4.0</li>
-                    <li>DLSS 3 compatible</li>
-                </ul>
-                <div class="hardware-rating">
-                    <div class="stars">★★★★☆</div>
-                    <div class="rating-value">4.5/5</div>
-                </div>
-                <div class="hardware-price">$599.99</div>
-                <div class="hardware-actions">
-                    <button class="action-button primary-button">Ver Detalles</button>
-                    <button class="action-button secondary-button">Comparar</button>
-                </div>
-            </div>
             
-            <div class="hardware-card" data-category="ram" data-budget="low">
-                <div class="hardware-header">
-                    <div class="hardware-icon">💾</div>
-                    <h3 class="hardware-title">Corsair Vengeance LPX 32GB</h3>
-                </div>
-                <p class="hardware-specs">
-                    Kit de memoria DDR4 de alto rendimiento y bajo perfil para la mayoría de placas base.
-                </p>
-                <ul class="spec-list">
-                    <li>32GB (2x16GB) DDR4</li>
-                    <li>Velocidad: 3200MHz</li>
-                    <li>Latencia: CL16</li>
-                    <li>Compatible con XMP 2.0</li>
-                </ul>
-                <div class="hardware-rating">
-                    <div class="stars">★★★★★</div>
-                    <div class="rating-value">4.7/5</div>
-                </div>
-                <div class="hardware-price">$89.99</div>
-                <div class="hardware-actions">
-                    <button class="action-button primary-button">Ver Detalles</button>
-                    <button class="action-button secondary-button">Comparar</button>
-                </div>
-            </div>
             
-            <div class="hardware-card" data-category="storage" data-budget="medium">
-                <div class="hardware-header">
-                    <div class="hardware-icon">💿</div>
-                    <h3 class="hardware-title">Samsung 970 EVO Plus 1TB</h3>
-                </div>
-                <p class="hardware-specs">
-                    SSD NVMe M.2 de alta velocidad para carga rápida de aplicaciones y datos.
-                </p>
-                <ul class="spec-list">
-                    <li>1TB NVMe PCIe 3.0</li>
-                    <li>Velocidad lectura: 3,500 MB/s</li>
-                    <li>Velocidad escritura: 3,300 MB/s</li>
-                    <li>5 años de garantía</li>
-                </ul>
-                <div class="hardware-rating">
-                    <div class="stars">★★★★☆</div>
-                    <div class="rating-value">4.6/5</div>
-                </div>
-                <div class="hardware-price">$129.99</div>
-                <div class="hardware-actions">
-                    <button class="action-button primary-button">Ver Detalles</button>
-                    <button class="action-button secondary-button">Comparar</button>
-                </div>
-            </div>
+            
+            
+            
+            
         </div>
         
         <!-- Nueva Sección de Videos -->
