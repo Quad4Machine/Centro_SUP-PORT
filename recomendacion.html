@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recomendaciones de Hardware - SUP-PORT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        nav {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 1rem;
+        }
+        
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            margin: 0.5rem 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+        }
+        
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item a:hover {
+            background-color: rgba(253, 187, 45, 0.2);
+        }
+        
+        .nav-item a.active {
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            font-weight: bold;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-item::before {
+            content: "";
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #fdbb2d;
+            margin-right: 8px;
+            border-radius: 3px;
+        }
+        
+        .checked::before {
+            background-color: #fdbb2d;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+            background-size: contain;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            color: #fdbb2d;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .intro-text {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .filter-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .filter-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .filter-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-group select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(253, 187, 45, 0.5);
+        }
+        
+        .categories-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .category-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        .category-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .hardware-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .hardware-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .hardware-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .hardware-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .hardware-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: #fdbb2d;
+        }
+        
+        .hardware-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fdbb2d;
+        }
+        
+        .hardware-specs {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .spec-list {
+            list-style-type: none;
+            margin-top: 0.5rem;
+        }
+        
+        .spec-list li {
+            margin-bottom: 0.3rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+        
+        .spec-list li:before {
+            content: "•";
+            color: #fdbb2d;
+            position: absolute;
+            left: 0;
+        }
+        
+        .hardware-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .stars {
+            color: #fdbb2d;
+            margin-right: 0.5rem;
+        }
+        
+        .rating-value {
+            font-weight: bold;
+        }
+        
+        .hardware-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fdbb2d;
+            margin-bottom: 1rem;
+        }
+        
+        .hardware-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .action-button {
+            flex: 1;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .primary-button {
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+        }
+        
+        .primary-button:hover {
+            background-color: #ffcc55;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .secondary-button {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .secondary-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Sección de Videos */
+        .videos-section {
+            margin-top: 4rem;
+        }
+        
+        .videos-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #fdbb2d;
+            text-align: center;
+        }
+        
+        .videos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+        
+        .video-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 200px;
+            background-color: #1a2a6c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .play-button {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(253, 187, 45, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #1a2a6c;
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            transform: scale(1.1);
+            background-color: #fdbb2d;
+        }
+        
+        .video-info {
+            padding: 1.5rem;
+        }
+        
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #fdbb2d;
+        }
+        
+        .video-description {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: #fdbb2d;
+        }
+        
+        .close-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .video-player {
+            width: 100%;
+            height: 400px;
+            background-color: #000;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .budget-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .budget-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fdbb2d;
+        }
+        
+        .budget-text {
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .budget-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #fdbb2d;
+            color: #1a2a6c;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .budget-button:hover {
+            background-color: #ffcc55;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .filters {
+                flex-direction: column;
+            }
+            
+            .categories-container, .hardware-container, .videos-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hardware-actions {
+                flex-direction: column;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-item {
+                margin: 0.3rem 0;
+            }
+            
+            .video-player {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SUP-PORT</div>
+    </header>
+    
+    <nav>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="index.html">Inicio</a></li>
+            <li class="nav-item"><a href="problmcomun.html">Problemas Comunes</a></li>
+            <li class="nav-item"><a href="#" class="active">Recomendaciones</a></li>
+            <li class="nav-item"><a href="consultar.html">Consultar</a></li>
+            <li class="nav-item"><a href="foro.html">Foro</a></li>
+            <li class="nav-item"><a href="login.html">Iniciar Sesion</a></li>
+            <li class="nav-item"><a href="register.html">Registrarse</a></li>
+        </ul>
+    </nav>
+    
+    <main class="main-content">
+        <h1 class="page-title">Recomendaciones de Hardware</h1>
+        
+        <p class="intro-text">
+            Encuentra las mejores recomendaciones de hardware optimizado para SUP-PORT. 
+            Hemos probado y seleccionado componentes que ofrecen el mejor rendimiento y compatibilidad con nuestro sistema.
+            Ademas podras encontrar tutoriales sobre recomendaciones basicas de hardware
+        </p>
+        
+        <section class="filter-section">
+            <h2 class="filter-title">Filtrar Recomendaciones</h2>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="category">Categoría</label>
+                    <select id="category">
+                        <option value="all">Todas las categorías</option>
+                        <option value="cpu">Procesadores</option>
+                        <option value="gpu">Tarjetas Gráficas</option>
+                        <option value="ram">Memoria RAM</option>
+                        <option value="storage">Almacenamiento</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="budget">Presupuesto</label>
+                    <select id="budget">
+                        <option value="all">Cualquier presupuesto</option>
+                        <option value="low">Económico (menos de $500)</option>
+                        <option value="medium">Medio ($500 - $1500)</option>
+                        <option value="high">Alto (más de $1500)</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="usage">Uso Principal</label>
+                    <select id="usage">
+                        <option value="all">Cualquier uso</option>
+                        <option value="office">Oficina</option>
+                        <option value="gaming">Gaming</option>
+                        <option value="development">Desarrollo</option>
+                        <option value="server">Servidor</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+        
+        <h2 class="filter-title">Categorías de Hardware</h2>
+        
+        <div class="categories-container">
+            <div class="category-card" data-category="cpu">
+                <div class="category-icon">⚡</div>
+                <h2 class="category-title">Procesadores</h2>
+                <p class="category-description">CPU optimizados para el rendimiento de SUP-PORT en diferentes tareas y presupuestos.</p>
+            </div>
+            
+            <div class="category-card" data-category="gpu">
+                <div class="category-icon">🎮</div>
+                <h2 class="category-title">Tarjetas Gráficas</h2>
+                <p class="category-description">GPUs para visualización, renderizado y procesamiento de datos intensivo.</p>
+            </div>
+            
+            <div class="category-card" data-category="ram">
+                <div class="category-icon">💾</div>
+                <h2 class="category-title">Memoria RAM</h2>
+                <p class="category-description">Módulos de memoria para un rendimiento óptimo con cargas de trabajo pesadas.</p>
+            </div>
+        </div>
+        
+        <h2 class="filter-title">Recomendaciones Destacadas</h2>
+        
+        <div class="hardware-container">
+            <div class="hardware-card" data-category="cpu" data-budget="medium">
+                <div class="hardware-header">
+                    <div class="hardware-icon">⚡</div>
+                    <h3 class="hardware-title">AMD Ryzen 7 5800X</h3>
+                </div>
+                <p class="hardware-specs">
+                    Procesador de 8 núcleos y 16 hilos, ideal para multitarea y procesamiento de datos.
+                </p>
+                <ul class="spec-list">
+                    <li>8 núcleos, 16 hilos</li>
+                    <li>Frecuencia base: 3.8 GHz</li>
+                    <li>Cache: 36 MB</li>
+                    <li>Socket: AM4</li>
+                </ul>
+                <div class="hardware-rating">
+                    <div class="stars">★★★★★</div>
+                    <div class="rating-value">4.8/5</div>
+                </div>
+                <div class="hardware-price">$349.99</div>
+                <div class="hardware-actions">
+                    <button class="action-button primary-button">Ver Detalles</button>
+                    <button class="action-button secondary-button">Comparar</button>
+                </div>
+            </div>
+            
+            <div class="hardware-card" data-category="gpu" data-budget="high">
+                <div class="hardware-header">
+                    <div class="hardware-icon">🎮</div>
+                    <h3 class="hardware-title">NVIDIA RTX 4070</h3>
+                </div>
+                <p class="hardware-specs">
+                    Tarjeta gráfica de alto rendimiento para visualización 3D y procesamiento paralelo.
+                </p>
+                <ul class="spec-list">
+                    <li>12 GB GDDR6X</li>
+                    <li>5888 CUDA Cores</li>
+                    <li>PCIe 4.0</li>
+                    <li>DLSS 3 compatible</li>
+                </ul>
+                <div class="hardware-rating">
+                    <div class="stars">★★★★☆</div>
+                    <div class="rating-value">4.5/5</div>
+                </div>
+                <div class="hardware-price">$599.99</div>
+                <div class="hardware-actions">
+                    <button class="action-button primary-button">Ver Detalles</button>
+                    <button class="action-button secondary-button">Comparar</button>
+                </div>
+            </div>
+            
+            <div class="hardware-card" data-category="ram" data-budget="low">
+                <div class="hardware-header">
+                    <div class="hardware-icon">💾</div>
+                    <h3 class="hardware-title">Corsair Vengeance LPX 32GB</h3>
+                </div>
+                <p class="hardware-specs">
+                    Kit de memoria DDR4 de alto rendimiento y bajo perfil para la mayoría de placas base.
+                </p>
+                <ul class="spec-list">
+                    <li>32GB (2x16GB) DDR4</li>
+                    <li>Velocidad: 3200MHz</li>
+                    <li>Latencia: CL16</li>
+                    <li>Compatible con XMP 2.0</li>
+                </ul>
+                <div class="hardware-rating">
+                    <div class="stars">★★★★★</div>
+                    <div class="rating-value">4.7/5</div>
+                </div>
+                <div class="hardware-price">$89.99</div>
+                <div class="hardware-actions">
+                    <button class="action-button primary-button">Ver Detalles</button>
+                    <button class="action-button secondary-button">Comparar</button>
+                </div>
+            </div>
+            
+            <div class="hardware-card" data-category="storage" data-budget="medium">
+                <div class="hardware-header">
+                    <div class="hardware-icon">💿</div>
+                    <h3 class="hardware-title">Samsung 970 EVO Plus 1TB</h3>
+                </div>
+                <p class="hardware-specs">
+                    SSD NVMe M.2 de alta velocidad para carga rápida de aplicaciones y datos.
+                </p>
+                <ul class="spec-list">
+                    <li>1TB NVMe PCIe 3.0</li>
+                    <li>Velocidad lectura: 3,500 MB/s</li>
+                    <li>Velocidad escritura: 3,300 MB/s</li>
+                    <li>5 años de garantía</li>
+                </ul>
+                <div class="hardware-rating">
+                    <div class="stars">★★★★☆</div>
+                    <div class="rating-value">4.6/5</div>
+                </div>
+                <div class="hardware-price">$129.99</div>
+                <div class="hardware-actions">
+                    <button class="action-button primary-button">Ver Detalles</button>
+                    <button class="action-button secondary-button">Comparar</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Nueva Sección de Videos -->
+        <section class="videos-section">
+            <h2 class="videos-title">Videos de Revisión y Tutoriales</h2>
+            
+            <div class="videos-container">
+                <div class="video-card">
+                    <div class="video-thumbnail" data-video="cpu-review">
+                        <div class="play-button">▶</div>
+                        <img src="https://via.placeholder.com/400x200/1a2a6c/ffffff?text=CPU+Review" alt="Revisión de Procesadores">
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Revisión: Mejores CPUs para SUP-PORT 2023</h3>
+                        <p class="video-description">Análisis detallado de los procesadores que ofrecen el mejor rendimiento con nuestro sistema.</p>
+                        <div class="video-meta">
+                            <span>Duración: 15:23</span>
+                            <span>Publicado: 12/10/2023</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <div class="video-thumbnail" data-video="gpu-comparison">
+                        <div class="play-button">▶</div>
+                        <img src="https://via.placeholder.com/400x200/b21f1f/ffffff?text=GPU+Comparison" alt="Comparación de GPUs">
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Comparativa: NVIDIA vs AMD para SUP-PORT</h3>
+                        <p class="video-description">¿Qué tarjeta gráfica es mejor para tu configuración? Te lo mostramos en detalle.</p>
+                        <div class="video-meta">
+                            <span>Duración: 22:45</span>
+                            <span>Publicado: 05/10/2023</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <div class="video-thumbnail" data-video="build-tutorial">
+                        <div class="play-button">▶</div>
+                        <img src="https://via.placeholder.com/400x200/fdbb2d/1a2a6c?text=Build+Tutorial" alt="Tutorial de Ensamblaje">
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Tutorial: Ensambla tu PC Optimizado para SUP-PORT</h3>
+                        <p class="video-description">Guía paso a paso para construir un sistema completamente compatible con nuestro software.</p>
+                        <div class="video-meta">
+                            <span>Duración: 28:12</span>
+                            <span>Publicado: 28/09/2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="budget-section">
+            <h2 class="budget-title">¿No encuentras lo que buscas?</h2>
+            <p class="budget-text">
+                Si tienes un presupuesto específico o necesidades particulares, podemos ayudarte a encontrar 
+                la configuración perfecta para tu caso de uso con SUP-PORT.
+            </p>
+            <button class="budget-button">Solicitar Recomendación Personalizada</button>
+        </section>
+    </main>
+    
+    <!-- Modal para reproducir videos -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Título del Video</h3>
+                <button class="close-button" id="closeModal">×</button>
+            </div>
+            <div class="video-player" id="videoPlayer">
+                <!-- El reproductor de video se insertará aquí dinámicamente -->
+            </div>
+            <p id="modalDescription">Descripción del video...</p>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 SUP-PORT - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // Simulación de filtrado de hardware
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryFilter = document.getElementById('category');
+            const budgetFilter = document.getElementById('budget');
+            const usageFilter = document.getElementById('usage');
+            const hardwareCards = document.querySelectorAll('.hardware-card');
+            const categoryCards = document.querySelectorAll('.category-card');
+            
+            // Función para filtrar hardware
+            function filterHardware() {
+                const categoryValue = categoryFilter.value;
+                const budgetValue = budgetFilter.value;
+                const usageValue = usageFilter.value;
+                
+                hardwareCards.forEach(card => {
+                    let categoryMatch = true;
+                    let budgetMatch = true;
+                    let usageMatch = true;
+                    
+                    // Filtrar por categoría
+                    if (categoryValue !== 'all') {
+                        if (card.getAttribute('data-category') !== categoryValue) {
+                            categoryMatch = false;
+                        }
+                    }
+                    
+                    // Filtrar por presupuesto
+                    if (budgetValue !== 'all') {
+                        if (card.getAttribute('data-budget') !== budgetValue) {
+                            budgetMatch = false;
+                        }
+                    }
+                    
+                    // Mostrar u ocultar según coincidan los filtros
+                    if (categoryMatch && budgetMatch && usageMatch) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Añadir event listeners a los filtros
+            categoryFilter.addEventListener('change', filterHardware);
+            budgetFilter.addEventListener('change', filterHardware);
+            usageFilter.addEventListener('change', filterHardware);
+            
+            // Navegación por categorías
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    categoryFilter.value = category;
+                    filterHardware();
+                    
+                    // Scroll suave a las recomendaciones
+                    document.querySelector('.hardware-container').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Simulación de botones de acción
+            document.querySelectorAll('.primary-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const hardwareTitle = this.closest('.hardware-card').querySelector('.hardware-title').textContent;
+                    alert(`Mostrando detalles de: ${hardwareTitle}\n\nEn una implementación real, esto abriría una página con especificaciones detalladas, reviews y opciones de compra.`);
+                });
+            });
+            
+            document.querySelectorAll('.secondary-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const hardwareTitle = this.closest('.hardware-card').querySelector('.hardware-title').textContent;
+                    alert(`Añadiendo ${hardwareTitle} a la comparativa\n\nEn una implementación real, esto permitiría comparar múltiples productos lado a lado.`);
+                });
+            });
+            
+            // Simulación de recomendación personalizada
+            document.querySelector('.budget-button').addEventListener('click', function() {
+                alert('Abriendo formulario de recomendación personalizada...\n\nEn una implementación real, esto permitiría ingresar presupuesto, uso específico y preferencias para recibir recomendaciones personalizadas.');
+            });
+            
+            // Funcionalidad para los videos
+            const videoModal = document.getElementById('videoModal');
+            const closeModal = document.getElementById('closeModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const videoPlayer = document.getElementById('videoPlayer');
+            
+            // Datos de los videos (simulados)
+            const videoData = {
+                'cpu-review': {
+                    title: 'Revisión: Mejores CPUs para SUP-PORT 2023',
+                    description: 'Análisis detallado de los procesadores que ofrecen el mejor rendimiento con nuestro sistema. Incluye benchmarks y comparativas de rendimiento.',
+                    videoId: 'dQw4w9WgXcQ' // ID de ejemplo (Rick Astley)
+                },
+                'gpu-comparison': {
+                    title: 'Comparativa: NVIDIA vs AMD para SUP-PORT',
+                    description: '¿Qué tarjeta gráfica es mejor para tu configuración? Te lo mostramos en detalle con pruebas reales en SUP-PORT.',
+                    videoId: 'dQw4w9WgXcQ'
+                },
+                'build-tutorial': {
+                    title: 'Tutorial: Ensambla tu PC Optimizado para SUP-PORT',
+                    description: 'Guía paso a paso para construir un sistema completamente compatible con nuestro software. Desde la selección de componentes hasta la instalación.',
+                    videoId: 'dQw4w9WgXcQ'
+                }
+            };
+            
+            // Abrir modal al hacer clic en un video
+            document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    const videoKey = this.getAttribute('data-video');
+                    const video = videoData[videoKey];
+                    
+                    if (video) {
+                        modalTitle.textContent = video.title;
+                        modalDescription.textContent = video.description;
+                        
+                        // Insertar reproductor de YouTube (simulado)
+                        videoPlayer.innerHTML = `
+                            <div style="width:100%;height:100%;display:flex;justify-content:center;align-items:center;background:#000;color:white;font-size:1.2rem;">
+                                <div style="text-align:center;">
+                                    <div style="font-size:3rem;margin-bottom:1rem;">▶</div>
+                                    <div>Reproductor de Video Simulado</div>
+                                    <div style="font-size:0.9rem;margin-top:1rem;opacity:0.7;">En una implementación real, aquí se cargaría el video</div>
+                                </div>
+                            </div>
+                        `;
+                        
+                        videoModal.style.display = 'flex';
+                    }
+                });
+            });
+            
+            // Cerrar modal
+            closeModal.addEventListener('click', function() {
+                videoModal.style.display = 'none';
+            });
+            
+            // Cerrar modal al hacer clic fuera del contenido
+            videoModal.addEventListener('click', function(e) {
+                if (e.target === videoModal) {
+                    videoModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
